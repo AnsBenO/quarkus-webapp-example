@@ -1,15 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title></title>
-</head>
-<body>
-	<p>
-		item : com.ansbeno.TodoItem
-		<ul>
-		</ul>
+{#include layouts/modal } {#modalTitle}Edit Todo Item{/modalTitle}
 
-	</p>
-</body>
-</html>
+<!-- Form -->
+<form
+	hx-patch="/todolist/item/{item.id}/edit"
+	hx-target="#todo-content"
+	hx-swap="innerHTML"
+	class="p-4 space-y-4"
+>
+	<input
+		type="hidden"
+		name="id"
+		value="{item.id}"
+	/>
+
+	<!-- Title -->
+	<label class="block">
+		<span class="text-gray-300">Title</span>
+		<input
+			type="text"
+			name="title"
+			value="{item.title}"
+			class="mt-1 p-2 w-full rounded-lg bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
+			required
+		/>
+	</label>
+
+	<!-- Description -->
+	<label class="block">
+		<span class="text-gray-300">Description</span>
+		<textarea
+			name="description"
+			rows="3"
+			class="mt-1 p-2 w-full rounded-lg bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
+			required
+		>
+{item.description}</textarea
+		>
+	</label>
+
+	<!-- Completed -->
+	<label class="flex items-center space-x-2">
+		<input type="checkbox" name="completed" value="true"
+		class="form-checkbox text-yellow-500 rounded focus:ring-yellow-500" {#if
+		item.completed}checked{/if} />
+		<span class="text-gray-300">Completed</span>
+	</label>
+
+	<!-- Actions -->
+	<div class="flex justify-end space-x-2 pt-2">
+		<button
+			type="button"
+			onclick="closeModal(event)"
+			class="px-4 py-2 rounded-lg bg-gray-600 hover:bg-gray-700 text-white transition-colors"
+		>
+			Cancel
+		</button>
+		<button
+			type="submit"
+			class="px-4 py-2 rounded-lg bg-yellow-500 hover:bg-yellow-600 text-white transition-colors"
+		>
+			Save
+		</button>
+	</div>
+</form>
+{/include}

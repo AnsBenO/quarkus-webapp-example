@@ -1,19 +1,23 @@
 package com.ansbeno;
 
 import java.util.List;
+import java.util.UUID;
 
 import io.quarkus.qute.CheckedTemplate;
 import io.quarkus.qute.TemplateExtension;
 import io.quarkus.qute.TemplateInstance;
+import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.PATCH;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,7 +39,7 @@ public class TodoListResource {
 
             public static native TemplateInstance todoItemForm(TodoItem item);
 
-            public static native TemplateInstance confirmDelete(TodoItem item);
+            public static native TemplateInstance todoItemList(List<TodoItem> items);
 
       }
 
@@ -51,9 +55,9 @@ public class TodoListResource {
 
       // View the entire list
       @GET
-      @Path("/")
       public TemplateInstance index() {
-            return Templates.index(todoService.getTodoItems());
+            List<TodoItem> items = todoService.getTodoItems();
+            return Templates.index(items);
       }
 
       // View a single list item
@@ -73,12 +77,15 @@ public class TodoListResource {
       // Update a list item and return the updated list
       @PATCH
       @Path("item/{id}/edit")
+      @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
       public TemplateInstance updateTodoItem(TodoItem updatedItem) {
+            log.info("Updated item: {}", updatedItem);
             todoService.updateTodoItem(updatedItem);
-            return index();
+            List<TodoItem> items = todoService.getTodoItems();
+            return Templates.todoItemList(items);
       }
 
-      // Crete a new list item form
+      // Create a new list item form
       @GET
       @Path("item/new")
       public TemplateInstance newTodoItem() {
@@ -88,9 +95,12 @@ public class TodoListResource {
       // Add a new list item and return the updated list
       @POST
       @Path("item/new")
+      @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
       public TemplateInstance addTodoItem(TodoItem item) {
+            item.setId(UUID.randomUUID().toString());
             todoService.addTodoItem(item);
-            return index();
+            List<TodoItem> items = todoService.getTodoItems();
+            return Templates.todoItemList(items);
       }
 
       // Delete a list item and return the updated list
@@ -98,7 +108,8 @@ public class TodoListResource {
       @Path("item/{id}")
       public TemplateInstance deleteTodoItem(@PathParam("id") String id) {
             todoService.removeTodoItem(id);
-            return index();
+            List<TodoItem> items = todoService.getTodoItems();
+            return Templates.todoItemList(items);
       }
 
 }

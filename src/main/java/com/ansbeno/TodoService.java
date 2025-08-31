@@ -1,6 +1,8 @@
 package com.ansbeno;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -8,14 +10,14 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class TodoService {
 
-      private List<TodoItem> todoItems;
+      private ArrayList<TodoItem> todoItems;
 
       @PostConstruct
       public void init() {
-            todoItems = List.of(
-                        new TodoItem("1", "Task 1", false),
-                        new TodoItem("2", "Task 2", true),
-                        new TodoItem("3", "Task 3", false));
+            todoItems = new ArrayList<>(List.of(
+                        new TodoItem("1", "Task 1", "Description for Task 1", false),
+                        new TodoItem("2", "Task 2", "Description for Task 2", true),
+                        new TodoItem("3", "Task 3", "Description for Task 3", false)));
       }
 
       public List<TodoItem> getTodoItems() {
@@ -23,7 +25,8 @@ public class TodoService {
       }
 
       public void setTodoItems(List<TodoItem> todoItems) {
-            this.todoItems = todoItems;
+            this.todoItems = todoItems.stream()
+                        .collect(Collectors.toCollection(ArrayList::new));
       }
 
       public TodoItem getTodoItem(String id) {
@@ -44,7 +47,7 @@ public class TodoService {
       public void updateTodoItem(TodoItem updatedItem) {
             todoItems = todoItems.stream()
                         .map(item -> item.getId().equals(updatedItem.getId()) ? updatedItem : item)
-                        .toList();
+                        .collect(Collectors.toCollection(ArrayList::new));
       }
 
 }

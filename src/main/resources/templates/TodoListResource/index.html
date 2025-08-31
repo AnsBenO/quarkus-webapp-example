@@ -1,13 +1,2 @@
-{! templates/TodoListResource/index.html !} {! you can extend the main.html file
-like this, to give your templates a common style !} {#include layouts/main}
-{#title}Welcome{/title}
-<div>
-	{items.completeCount()}
-	<br />
-	{#each items}
-	<p>
-		<a href="item/{it.id}">{it.title}</a> {#if it.completed} (completed)
-		{/if}
-	</p>
-	{/each}
-</div>
+{! templates/TodoListResource/index.html !} {#include layouts/main} {#title}Todo
+List{/title} {#include TodoListResource/todoItemList items /} {/include}

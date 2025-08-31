@@ -1,0 +1,42 @@
+<div class="mb-2 text-gray-300">{items.completeCount()}</div>
+
+<ul
+	id="todo-list"
+	class="space-y-2 max-w-xl flex flex-col mx-auto"
+>
+	{#each items}
+	<li
+		id="item-{it.id}"
+		class="flex justify-between items-center p-2 bg-gray-800 rounded shadow"
+	>
+		<div>
+			<a
+				hx-get="/todolist/item/{it.id}"
+				hx-target="#modal-div"
+				hx-swap="innerHTML"
+				class="hover:underline text-blue-400"
+				>{it.title}</a
+			>
+			{#if it.completed}
+			<span class="text-green-400 ml-2">(completed)</span>
+			{/if}
+		</div>
+		<div class="space-x-2">
+			<button
+				hx-get="/todolist/item/{it.id}/edit"
+				hx-target="#modal-div"
+				hx-swap="innerHTML"
+				class="text-yellow-300 hover:text-yellow-400"
+			>
+				Edit
+			</button>
+			<button
+				onclick="handleDeleteItem(event, '{it.id}')"
+				class="text-red-400 hover:text-red-500"
+			>
+				Delete
+			</button>
+		</div>
+	</li>
+	{/each}
+</ul>
