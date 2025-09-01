@@ -12,12 +12,10 @@
 		<!-- Bundled JS and CSS -->
 	</head>
 	<body
-		class="bg-gray-900 text-white min-h-screen font-sans"
+		class="bg-ink-900 text-white min-h-screen font-sans"
 		hx-headers='{"{inject:csrf.headerName}":"{inject:csrf.token}"}'
 	>
-		<header
-			class="p-4 bg-slate-800 flex justify-between items-center border-b-2 border-red-400"
-		>
+		<header class="p-4 bg-ink-900 flex justify-between items-center px-56">
 			<h1 class="text-xl font-bold">Todo List</h1>
 			<button
 				hx-get="/todolist/item/new"
@@ -33,15 +31,12 @@
 			id="todo-content"
 			class="p-4"
 		>
-			{#insert /}
-			<!-- Template body -->
+			{#insert /} {! Template body !}
 		</main>
 
-		<div id="modal-div">
-			<!-- will get swapped into -->
-		</div>
+		<div id="modal-div">{! will get swapped into !}</div>
 		<template id="confirm-dialog-template">
-			{#include /fragments/confirmDialogModal /}
+			{! confirm delete modal !} {#include fragments/confirmDialogModal /}
 		</template>
 	</body>
 </html>

@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+/* Tailwind custom colors  */
+@theme {
+	--color-ink-50: #e6e6ea;
+	--color-ink-100: #cfcfd6;
+	--color-ink-200: #a9a9b3;
+	--color-ink-300: #7c7c8a;
+	--color-ink-400: #57576a;
+	--color-ink-500: #36364a;
+	--color-ink-600: #232336;
+	--color-ink-700: #181826;
+	--color-ink-800: #12121d;
+	--color-ink-900: #0a0a10;
+}
