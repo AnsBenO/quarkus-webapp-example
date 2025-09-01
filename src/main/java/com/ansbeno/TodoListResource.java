@@ -8,15 +8,12 @@ import io.quarkus.qute.TemplateExtension;
 import io.quarkus.qute.TemplateInstance;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
-import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.PATCH;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.Context;
-import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.MediaType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,18 +26,22 @@ public class TodoListResource {
 
       private final TodoService todoService;
 
-      @CheckedTemplate
+      @CheckedTemplate(basePath = "todolist")
       public static class Templates {
+            // View the main to-do list page
             public static native TemplateInstance index(List<TodoItem> items);
 
-            public static native TemplateInstance todoItem(TodoItem item);
+            // View a single item's details
+            public static native TemplateInstance viewItemModal(TodoItem item);
 
-            public static native TemplateInstance todoForm();
+            // Form to add a new item
+            public static native TemplateInstance createItemFormModal();
 
-            public static native TemplateInstance todoItemForm(TodoItem item);
+            // Form to edit an existing item
+            public static native TemplateInstance editItemFormModal(TodoItem item);
 
-            public static native TemplateInstance todoItemList(List<TodoItem> items);
-
+            // View the entire list
+            public static native TemplateInstance listItems(List<TodoItem> items);
       }
 
       @TemplateExtension
@@ -64,14 +65,14 @@ public class TodoListResource {
       @GET
       @Path("item/{id}")
       public TemplateInstance getTodoItem(@PathParam("id") String id) {
-            return Templates.todoItem(todoService.getTodoItem(id));
+            return Templates.viewItemModal(todoService.getTodoItem(id));
       }
 
-      // Form to add a new list item
+      // Form to edit a list item
       @GET
       @Path("item/{id}/edit")
       public TemplateInstance showEditTodoItem(@PathParam("id") String id) {
-            return Templates.todoItemForm(todoService.getTodoItem(id));
+            return Templates.editItemFormModal(todoService.getTodoItem(id));
       }
 
       // Update a list item and return the updated list
@@ -82,14 +83,14 @@ public class TodoListResource {
             log.info("Updated item: {}", updatedItem);
             todoService.updateTodoItem(updatedItem);
             List<TodoItem> items = todoService.getTodoItems();
-            return Templates.todoItemList(items);
+            return Templates.listItems(items);
       }
 
       // Create a new list item form
       @GET
       @Path("item/new")
       public TemplateInstance newTodoItem() {
-            return Templates.todoForm();
+            return Templates.createItemFormModal();
       }
 
       // Add a new list item and return the updated list
@@ -100,7 +101,7 @@ public class TodoListResource {
             item.setId(UUID.randomUUID().toString());
             todoService.addTodoItem(item);
             List<TodoItem> items = todoService.getTodoItems();
-            return Templates.todoItemList(items);
+            return Templates.listItems(items);
       }
 
       // Delete a list item and return the updated list
@@ -109,7 +110,7 @@ public class TodoListResource {
       public TemplateInstance deleteTodoItem(@PathParam("id") String id) {
             todoService.removeTodoItem(id);
             List<TodoItem> items = todoService.getTodoItems();
-            return Templates.todoItemList(items);
+            return Templates.listItems(items);
       }
 
 }
