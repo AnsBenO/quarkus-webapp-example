@@ -1,5 +1,6 @@
 // src/main/resources/web/app/app.js
 import htmx from "htmx.org";
+import swal from "sweetalert2";
 
 document.addEventListener("DOMContentLoaded", function () {
 	let deleteTargetId = null;
@@ -38,12 +39,34 @@ document.addEventListener("DOMContentLoaded", function () {
 			closeModal(event);
 
 			// Optional: show a success toast/notification
-			showNotification(
+			showToastNotification(
 				"Deleted!",
 				"Your item has been deleted.",
 				"success"
 			);
 		}
+	};
+
+	/**
+	 * Shows a notification using SweetAlert2.
+	 * @function showToastNotification
+	 * @param {string} title - The title of the notification.
+	 * @param {string} message - The message content of the notification.
+	 * @param {"success"|"error"|"warning"|"info"|"question"} type - The type of notification.
+	 */
+	const showToastNotification = (title, message, type) => {
+		swal.fire({
+			title: title,
+			text: message,
+			icon: type,
+			toast: true,
+			position: "bottom-end",
+			showConfirmButton: false,
+			timer: 3000,
+			timerProgressBar: true,
+			background: "#0a0f19",
+			color: "#d1d5b9",
+		});
 	};
 
 	/**
@@ -86,6 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	window.closeModal = closeModal;
 	window.deleteTargetId = deleteTargetId;
 	window.handleDeleteItem = handleDeleteItem;
+	window.showToastNotification = showToastNotification;
 	window.confirmDelete = confirmDelete;
 });
 
