@@ -64,7 +64,7 @@ public class TodoListResource {
       // View a single list item
       @GET
       @Path("item/{id}")
-      public TemplateInstance getTodoItem(@PathParam("id") String id) {
+      public TemplateInstance showTodoItem(@PathParam("id") String id) {
             return Templates.viewItemModal(todoService.getTodoItem(id));
       }
 
