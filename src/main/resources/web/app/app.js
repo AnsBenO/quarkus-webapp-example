@@ -106,16 +106,18 @@ document.addEventListener("DOMContentLoaded", function () {
 			modalContainer.innerHTML = "";
 		}
 	};
+
+	// Close modal after htmx content is loaded
+	document
+		.getElementById("todo-content")
+		.addEventListener("htmx:afterSettle", function (event) {
+			closeModal(event);
+		});
+
+	// Expose functions to global scope for inline event handlers
 	window.closeModal = closeModal;
 	window.deleteTargetId = deleteTargetId;
 	window.handleDeleteItem = handleDeleteItem;
 	window.showToastNotification = showToastNotification;
 	window.confirmDelete = confirmDelete;
 });
-
-// Close modal after htmx content is loaded
-document
-	.getElementById("todo-content")
-	.addEventListener("htmx:afterSettle", function (event) {
-		closeModal(event);
-	});
