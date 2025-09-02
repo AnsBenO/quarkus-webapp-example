@@ -29,7 +29,7 @@ public class TodoListResource {
       @CheckedTemplate(basePath = "todolist")
       public static class Templates {
             // View the main to-do list page
-            public static native TemplateInstance index(List<TodoItem> items);
+            public static native TemplateInstance index(List<TodoItem> items, ToastNotification toast);
 
             // View a single item's details
             public static native TemplateInstance viewItemModal(TodoItem item);
@@ -41,7 +41,7 @@ public class TodoListResource {
             public static native TemplateInstance editItemFormModal(TodoItem item);
 
             // View the entire list
-            public static native TemplateInstance listItems(List<TodoItem> items);
+            public static native TemplateInstance listItems(List<TodoItem> items, ToastNotification toast);
       }
 
       @TemplateExtension
@@ -58,7 +58,9 @@ public class TodoListResource {
       @GET
       public TemplateInstance index() {
             List<TodoItem> items = todoService.getTodoItems();
-            return Templates.index(items);
+            // var toast = new ToastNotification("Items loaded", "Items have been loaded",
+            // ToastNotification.Type.SUCCESS);
+            return Templates.index(items, null);
       }
 
       // View a single list item
@@ -83,7 +85,9 @@ public class TodoListResource {
             log.info("Updated item: {}", updatedItem);
             todoService.updateTodoItem(updatedItem);
             List<TodoItem> items = todoService.getTodoItems();
-            return Templates.listItems(items);
+            var toast = new ToastNotification("Item updated", "Item " + updatedItem.getTitle() + " has been updated",
+                        ToastNotification.Type.SUCCESS);
+            return Templates.listItems(items, toast);
       }
 
       // Create a new list item form
@@ -101,16 +105,20 @@ public class TodoListResource {
             item.setId(UUID.randomUUID().toString());
             todoService.addTodoItem(item);
             List<TodoItem> items = todoService.getTodoItems();
-            return Templates.listItems(items);
+            var toast = new ToastNotification("Item added", "Item " + item.getTitle() + " has been added",
+                        ToastNotification.Type.SUCCESS);
+            return Templates.listItems(items, toast);
       }
 
       // Delete a list item and return the updated list
       @DELETE
       @Path("item/{id}")
       public TemplateInstance deleteTodoItem(@PathParam("id") String id) {
-            todoService.removeTodoItem(id);
+            String title = todoService.removeTodoItem(id);
             List<TodoItem> items = todoService.getTodoItems();
-            return Templates.listItems(items);
+            var toast = new ToastNotification("Item deleted", "Item " + title + " has been deleted",
+                        ToastNotification.Type.SUCCESS);
+            return Templates.listItems(items, toast);
       }
 
 }

@@ -40,8 +40,10 @@ public class TodoService {
             todoItems.add(item);
       }
 
-      public void removeTodoItem(String id) {
+      public String removeTodoItem(String id) {
+            String title = getTodoItem(id).getTitle();
             todoItems.removeIf(item -> item.getId().equals(id));
+            return title;
       }
 
       public void updateTodoItem(TodoItem updatedItem) {

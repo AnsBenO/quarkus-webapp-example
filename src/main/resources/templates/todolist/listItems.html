@@ -7,7 +7,7 @@
 	{#each items}
 	<li
 		id="item-{it.id}"
-		class="flex justify-between items-center p-2 bg-ink-700 rounded-lg shadow"
+		class="flex justify-between items-center px-4 py-2 bg-ink-700 rounded-lg shadow"
 	>
 		<div>
 			<a
@@ -38,5 +38,13 @@
 			</button>
 		</div>
 	</li>
-	{/each}
+	{/each} {#if toast}
+	<script>
+		showToastNotification(
+			"{toast.title}",
+			"{toast.message}",
+			"{toast.type.value}"
+		);
+	</script>
+	{/if}
 </ul>

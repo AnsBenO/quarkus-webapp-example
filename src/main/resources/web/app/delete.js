@@ -1,6 +1,5 @@
 import htmx from "htmx.org";
 import { closeModal } from "./modal";
-import { showToastNotification } from "./notifications";
 
 let deleteTargetId = null;
 
@@ -24,10 +23,5 @@ export const confirmDelete = (event) => {
 		});
 
 		closeModal(event);
-		showToastNotification(
-			"Deleted!",
-			"Your item has been deleted.",
-			"success"
-		);
 	}
 };

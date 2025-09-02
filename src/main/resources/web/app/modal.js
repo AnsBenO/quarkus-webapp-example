@@ -23,8 +23,8 @@ export const closeModal = (event) => {
 			},
 			{ once: true }
 		);
-	} else {
-		if (modalContainer) modalContainer.innerHTML = "";
+	} else if (modalContainer) {
+		modalContainer.innerHTML = "";
 	}
 };
 
@@ -33,7 +33,7 @@ export const closeModal = (event) => {
  * @param {Event} event
  * @param {string|number} id
  */
-export const handleDeleteItem = (event, id) => {
+export const handleDeleteItem = (event) => {
 	if (event?.preventDefault) event.preventDefault();
 
 	const modalContainer = document.getElementById("modal-div");
