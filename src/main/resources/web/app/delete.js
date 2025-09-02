@@ -17,7 +17,7 @@ export const confirmDelete = (event) => {
 	if (event?.preventDefault) event.preventDefault();
 
 	if (deleteTargetId) {
-		htmx.ajax("DELETE", `/todolist/item/${deleteTargetId}`, {
+		htmx.ajax("DELETE", `item/${deleteTargetId}`, {
 			target: "#todo-content",
 			swap: "innerHTML",
 		});

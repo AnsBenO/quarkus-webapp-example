@@ -11,7 +11,7 @@
 	>
 		<div>
 			<a
-				hx-get="/todolist/item/{it.id}"
+				hx-get="item/{it.id}"
 				hx-target="#modal-div"
 				hx-swap="innerHTML"
 				class="hover:underline text-blue-400"
@@ -23,7 +23,7 @@
 		</div>
 		<div class="space-x-2">
 			<button
-				hx-get="/todolist/item/{it.id}/edit"
+				hx-get="item/{it.id}/edit"
 				hx-target="#modal-div"
 				hx-swap="innerHTML"
 				class="text-yellow-300 hover:text-yellow-400"

@@ -7,6 +7,7 @@
 			name="viewport"
 			content="width=device-width, initial-scale=1.0"
 		/>
+		<base href="/todolist/" />
 		<title>{#insert title/}</title>
 		{#bundle/}
 		<!-- Bundled JS and CSS -->
@@ -18,7 +19,7 @@
 		<header class="p-4 bg-ink-900 flex justify-between items-center px-28">
 			<h1 class="text-xl font-bold">Todo List</h1>
 			<button
-				hx-get="/todolist/item/new"
+				hx-get="item/new"
 				hx-target="#modal-div"
 				hx-swap="innerHTML"
 				class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-white"

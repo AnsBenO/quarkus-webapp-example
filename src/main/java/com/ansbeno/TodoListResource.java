@@ -58,8 +58,6 @@ public class TodoListResource {
       @GET
       public TemplateInstance index() {
             List<TodoItem> items = todoService.getTodoItems();
-            // var toast = new ToastNotification("Items loaded", "Items have been loaded",
-            // ToastNotification.Type.SUCCESS);
             return Templates.index(items, null);
       }
 
