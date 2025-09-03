@@ -12,10 +12,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	// Expose globally for inline handlers
 	window.closeModal = closeModal;
+
+	/**
+	 * Set the current delete target ID and open the confirmation modal.
+	 * @param {Event} event - The event which triggered the deletion
+	 * @param {number} id - The ID of the item to be deleted
+	 */
 	window.handleDeleteItem = (event, id) => {
 		setDeleteTargetId(id);
 		handleDeleteItem(event, id);
 	};
+
 	window.confirmDelete = confirmDelete;
 	window.showToastNotification = showToastNotification;
 });
