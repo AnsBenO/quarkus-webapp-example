@@ -1,12 +1,12 @@
 {#include layouts/modal } {#modalTitle}View Todo{/modalTitle}
 <div class="p-4 space-y-3">
-	<h2 class="text-xl font-bold text-blue-400">{item.title}</h2>
+	<h2 class="text-xl font-bold text-sky-400">{item.title}</h2>
 
 	<p class="text-ink-300">
 		Status: {#if item.completed}
-		<span class="text-green-400 font-medium">Completed</span>
+		<span class="text-pine-400 font-medium">Completed</span>
 		{#else}
-		<span class="text-red-400 font-medium">Pending</span>
+		<span class="text-alarm-400 font-medium">Pending</span>
 		{/if}
 	</p>
 
@@ -18,14 +18,14 @@
 			hx-get="item/{item.id}/edit"
 			hx-target="#modal-div"
 			hx-swap="innerHTML"
-			class="px-4 py-2 rounded-lg bg-yellow-500 hover:bg-yellow-600 text-white transition-colors"
+			class="px-4 py-2 rounded-lg bg-warning-500 hover:bg-warning-600 text-ink-800 transition-colors"
 		>
 			Edit
 		</button>
 		<button
 			type="button"
 			onclick="handleDeleteItem(event)"
-			class="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white transition-colors"
+			class="px-4 py-2 rounded-lg bg-alarm-600 hover:bg-alarm-700 text-ink-800 transition-colors"
 		>
 			Delete
 		</button>

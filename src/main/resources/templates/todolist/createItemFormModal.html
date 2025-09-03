@@ -1,40 +1,64 @@
 {#include layouts/modal } {#modalTitle}Add New Todo Item{/modalTitle}
 
 <!-- Form -->
-<form hx-post="item/new" hx-target="#todo-content" hx-swap="innerHTML" class="p-4 space-y-4">
-	<input type="hidden" name="id" value="0" />
+<form
+	hx-post="item/new"
+	hx-target="#todo-content"
+	hx-swap="innerHTML"
+	class="p-4 space-y-4"
+>
+	<input
+		type="hidden"
+		name="id"
+		value="0"
+	/>
 
 	<!-- Title -->
 	<label class="block">
 		<span class="text-ink-300">Title</span>
-		<input type="text" name="title"
-			class="mt-1 p-2 w-full rounded-lg bg-ink-900 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-			required />
+		<input
+			type="text"
+			name="title"
+			class="mt-1 p-2 w-full rounded-lg bg-ink-900 text-white focus:outline-none focus:ring-2 focus:ring-sky-500"
+			required
+		/>
 	</label>
 
 	<!-- Description -->
 	<label class="block">
 		<span class="text-ink-300">Description</span>
-		<textarea name="description" rows="3"
-			class="mt-1 p-2 w-full rounded-lg bg-ink-900 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-			required></textarea>
+		<textarea
+			name="description"
+			rows="3"
+			class="mt-1 p-2 w-full rounded-lg bg-ink-900 text-white focus:outline-none focus:ring-2 focus:ring-sky-500"
+			required
+		></textarea>
 	</label>
 
 	<!-- Completed -->
 	<label class="flex items-center space-x-2">
-		<input type="checkbox" name="completed" value="true"
-			class="form-checkbox text-blue-600 rounded-lg focus:ring-blue-500" />
+		<input
+			type="checkbox"
+			name="completed"
+			value="true"
+			class="form-checkbox text-sky-600 rounded-lg focus:ring-sky-500"
+		/>
 		<span class="text-ink-300">Completed</span>
 	</label>
 
 	<!-- Actions -->
 	<div class="flex justify-end space-x-2 pt-2">
-		<button type="button" onclick="closeModal(event)"
-			class="px-4 py-2 rounded-lg bg-ink-700 hover:bg-ink-600 text-white transition-colors">
+		<button
+			type="button"
+			onclick="closeModal(event)"
+			class="px-4 py-2 rounded-lg bg-ink-700 hover:bg-ink-600 text-white transition-colors"
+		>
 			Cancel
 		</button>
-		<button type="submit"
-			class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors">
+		<button
+			type="submit"
+			class="px-4 py-2 rounded-lg bg-sky-600 hover:bg-sky-700 text-white transition-colors"
+		>
 			Add
 		</button>
 	</div>
