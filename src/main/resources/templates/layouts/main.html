@@ -9,8 +9,16 @@
 		/>
 		<base href="/todolist/" />
 		<title>{#insert title/}</title>
-		{#bundle/}
+
+		{! Font Awesome !}
+		<script src="/webjars/font-awesome/6.7.2/js/all.min.js"></script>
+		<link
+			rel="stylesheet"
+			href="/webjars/font-awesome/6.7.2/css/all.min.css"
+		/>
+
 		<!-- Bundled JS and CSS -->
+		{#bundle/}
 	</head>
 	<body
 		class="bg-ink-900 text-white min-h-screen font-sans"
@@ -24,7 +32,7 @@
 				hx-swap="innerHTML"
 				class="bg-sky-600 hover:bg-sky-700 px-4 py-2 rounded-lg text-white"
 			>
-				+ Add Item
+				<i class="fa-solid fa-plus mr-2"></i> Add Item
 			</button>
 		</header>
 
