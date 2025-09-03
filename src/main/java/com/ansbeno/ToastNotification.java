@@ -1,6 +1,5 @@
 package com.ansbeno;
 
-import io.quarkus.arc.All;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
