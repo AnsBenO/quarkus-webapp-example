@@ -1,6 +1,6 @@
-import { closeModal, handleDeleteItem } from "./modal";
-import { confirmDelete, setDeleteTargetId } from "./delete";
-import { showToastNotification } from "./notifications";
+import { closeModal, handleDeleteItem } from "./js/modal";
+import { confirmDelete, setDeleteTargetId } from "./js/delete";
+import { showToastNotification } from "./js/notifications";
 
 document.addEventListener("DOMContentLoaded", () => {
 	const todoContent = document.getElementById("todo-content");

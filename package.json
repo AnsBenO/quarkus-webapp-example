@@ -4,8 +4,8 @@
 	"description": "This project uses Quarkus, the Supersonic Subatomic Java Framework.",
 	"type": "module",
 	"scripts": {
-		"tw:build": "tailwindcss -i ./src/main/resources/web/static/css/input.css -o ./src/main/resources/web/app/style.css --minify",
-		"tw:watch": "tailwindcss -i ./src/main/resources/web/static/css/input.css -o ./src/main/resources/web/app/style.css --watch"
+		"tw:build": "tailwindcss -i ./src/main/resources/web/static/css/input.css -o ./src/main/resources/web/app/css/style.css --minify",
+		"tw:watch": "tailwindcss -i ./src/main/resources/web/static/css/input.css -o ./src/main/resources/web/app/css/style.css --watch"
 	},
 	"keywords": [],
 	"author": "",
