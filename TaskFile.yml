@@ -1,0 +1,9 @@
+version: "3"
+
+vars:
+    GOOS: "{{default OS .GOOS}}"
+    MVNW: '{{if eq .GOOS "windows"}}cmd /c mvnw.cmd{{else}}./mvnw{{end}}'
+    DC_DIR: "deployment/docker-compose"
+    INFRA_DC_FILE: "{{.DC_DIR}}/infra.yml"
+    APPS_DC_FILE: "{{.DC_DIR}}/apps.yml"
+    SLEEP_CMD: '{{if eq .GOOS "windows"}}timeout{{else}}sleep{{end}}'
