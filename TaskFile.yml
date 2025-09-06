@@ -7,3 +7,5 @@ vars:
     INFRA_DC_FILE: "{{.DC_DIR}}/infra.yml"
     APPS_DC_FILE: "{{.DC_DIR}}/apps.yml"
     SLEEP_CMD: '{{if eq .GOOS "windows"}}timeout{{else}}sleep{{end}}'
+
+    # todo add commands for running and building the application using docker
