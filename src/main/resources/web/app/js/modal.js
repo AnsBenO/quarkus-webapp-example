@@ -1,3 +1,5 @@
+import { setDeleteTargetId } from "./delete";
+
 /**
  * Close the modal
  * @param {Event} event
@@ -33,8 +35,10 @@ export const closeModal = (event) => {
  * @param {Event} event
  * @param {string|number} id
  */
-export const handleDeleteItem = (event) => {
+export const handleDeleteItem = (event, id) => {
 	if (event?.preventDefault) event.preventDefault();
+
+	setDeleteTargetId(id);
 
 	const modalContainer = document.getElementById("modal-div");
 	if (modalContainer) {

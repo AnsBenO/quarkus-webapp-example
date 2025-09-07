@@ -35,10 +35,16 @@
 				<i class="fa-solid fa-plus mr-2"></i> Add Item
 			</button>
 		</header>
+		<div
+			id="itemLoader"
+			class="hidden absolute z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+		>
+			<span class="items-loader"></span>
+		</div>
 
 		<main
 			id="todo-content"
-			class="p-4"
+			class="p-4 relative"
 		>
 			{#insert /} {! Template body !}
 		</main>

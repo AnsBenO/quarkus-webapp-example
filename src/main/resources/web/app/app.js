@@ -10,6 +10,15 @@ document.addEventListener("DOMContentLoaded", () => {
 		closeModal(event);
 	});
 
+	// Show/hide loader
+	document.body.addEventListener("htmx:beforeRequest", function (evt) {
+		document.getElementById("itemLoader").classList.remove("hidden");
+	});
+
+	document.body.addEventListener("htmx:afterRequest", function (evt) {
+		document.getElementById("itemLoader").classList.add("hidden");
+	});
+
 	// Expose globally for inline handlers
 	window.closeModal = closeModal;
 
