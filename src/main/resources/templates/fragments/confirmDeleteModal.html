@@ -17,9 +17,15 @@
 	<button
 		type="button"
 		onclick="confirmDelete(event)"
-		class="px-4 py-2 rounded-lg bg-alarm-600 hover:bg-alarm-700 text-ink-800 transition-colors"
+		class="relative px-4 py-2 rounded-lg bg-alarm-600 hover:bg-alarm-700 text-ink-800 transition-colors"
 	>
-		Delete
+		<img
+			id="buttonLoader"
+			src="/tail-spin-black.svg"
+			alt=""
+			class="btn-spinner absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 invisible w-5 h-5"
+		/>
+		<span class="btn-text">Delete</span>
 	</button>
 </div>
 

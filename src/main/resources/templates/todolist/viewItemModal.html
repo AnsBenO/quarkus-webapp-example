@@ -18,9 +18,14 @@
 			hx-get="item/{item.id}/edit"
 			hx-target="#modal-div"
 			hx-swap="innerHTML"
-			class="px-4 py-2 rounded-lg bg-warning-500 hover:bg-warning-600 text-ink-800 transition-colors"
+			class="relative px-4 py-2 rounded-lg bg-warning-500 hover:bg-warning-600 text-ink-800 transition-colors"
 		>
-			Edit
+			<img
+				class="htmx-indicator absolute w-5 h-5 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+				src="/tail-spin-black.svg"
+				alt=""
+			/>
+			<span>Edit</span>
 		</button>
 		<button
 			type="button"
