@@ -7,7 +7,7 @@
 	{#each items}
 	<li
 		id="item-{it.id}"
-		class="flex justify-between items-center px-4 py-2 bg-ink-700 rounded-lg shadow"
+		class="flex relative justify-between items-center px-4 py-2 bg-ink-700 rounded-lg shadow {#if it.completed}completed-task{/if}"
 	>
 		<div>
 			<a

@@ -105,3 +105,20 @@
 .htmx-request.htmx-indicator + span {
 	visibility: hidden;
 }
+
+/* Completed task line through */
+.completed-task::after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: -2.5%;
+	transform: translateY(-50%);
+	width: 105%;
+	height: 0.15rem;
+	background-color: var(--color-sky-500);
+	box-shadow: 0 0 0.5rem var(--color-ink-500);
+	z-index: 1;
+}
+.completed-task {
+	opacity: 0.5;
+}
