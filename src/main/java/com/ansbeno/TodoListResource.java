@@ -18,10 +18,11 @@ import jakarta.ws.rs.core.MediaType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@RequiredArgsConstructor
+
 @Slf4j
 @Path("/todolist")
 @Produces(MediaType.TEXT_HTML)
+@RequiredArgsConstructor
 public class TodoListResource {
 
       private final TodoService todoService;
@@ -29,25 +30,25 @@ public class TodoListResource {
       @CheckedTemplate(basePath = "todolist")
       public static class Templates {
             // View the main to-do list page
-            public static native TemplateInstance index(List<TodoItem> items, ToastNotification toast);
+            public static native TemplateInstance index(List<TodoDto> items, ToastNotification toast);
 
             // View a single item's details
-            public static native TemplateInstance viewItemModal(TodoItem item);
+            public static native TemplateInstance viewItemModal(TodoDto item);
 
             // Form to add a new item
             public static native TemplateInstance createItemFormModal();
 
             // Form to edit an existing item
-            public static native TemplateInstance editItemFormModal(TodoItem item);
+            public static native TemplateInstance editItemFormModal(TodoDto item);
 
             // View the entire list
-            public static native TemplateInstance listItems(List<TodoItem> items, ToastNotification toast);
+            public static native TemplateInstance listItems(List<TodoDto> items, ToastNotification toast);
       }
 
       @TemplateExtension
       public class TemplateExtensions {
-            public static String completeCount(List<TodoItem> items) {
-                  long completeCount = items.stream().filter(TodoItem::isCompleted).count();
+            public static String completeCount(List<TodoDto> items) {
+                  long completeCount = items.stream().filter(TodoDto::isCompleted).count();
                   long totalCount = items.size();
                   return completeCount + " of " + totalCount + " completed";
             }
@@ -57,32 +58,32 @@ public class TodoListResource {
       // View the entire list
       @GET
       public TemplateInstance index() {
-            List<TodoItem> items = todoService.getTodoItems();
+            List<TodoDto> items = todoService.getTodoDtos();
             return Templates.index(items, null);
       }
 
       // View a single list item
       @GET
       @Path("item/{id}")
-      public TemplateInstance showTodoItem(@PathParam("id") String id) {
-            return Templates.viewItemModal(todoService.getTodoItem(id));
+      public TemplateInstance showTodoDto(@PathParam("id") String id) {
+            return Templates.viewItemModal(todoService.getTodoDto(id));
       }
 
       // Form to edit a list item
       @GET
       @Path("item/{id}/edit")
-      public TemplateInstance showEditTodoItem(@PathParam("id") String id) {
-            return Templates.editItemFormModal(todoService.getTodoItem(id));
+      public TemplateInstance showEditTodoDto(@PathParam("id") String id) {
+            return Templates.editItemFormModal(todoService.getTodoDto(id));
       }
 
       // Update a list item and return the updated list
       @PATCH
       @Path("item/{id}/edit")
       @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-      public TemplateInstance updateTodoItem(TodoItem updatedItem) {
+      public TemplateInstance updateTodoDto(TodoDto updatedItem) {
             log.info("Updated item: {}", updatedItem);
-            todoService.updateTodoItem(updatedItem);
-            List<TodoItem> items = todoService.getTodoItems();
+            todoService.updateTodoDto(updatedItem);
+            List<TodoDto> items = todoService.getTodoDtos();
             var toast = new ToastNotification("Item updated", "Item " + updatedItem.getTitle() + " has been updated",
                         ToastNotification.Type.SUCCESS);
             return Templates.listItems(items, toast);
@@ -91,7 +92,7 @@ public class TodoListResource {
       // Create a new list item form
       @GET
       @Path("item/new")
-      public TemplateInstance newTodoItem() {
+      public TemplateInstance newTodoDto() {
             return Templates.createItemFormModal();
       }
 
@@ -99,10 +100,10 @@ public class TodoListResource {
       @POST
       @Path("item/new")
       @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-      public TemplateInstance addTodoItem(TodoItem item) {
+      public TemplateInstance addTodoDto(TodoDto item) {
             item.setId(UUID.randomUUID().toString());
-            todoService.addTodoItem(item);
-            List<TodoItem> items = todoService.getTodoItems();
+            todoService.addTodoDto(item);
+            List<TodoDto> items = todoService.getTodoDtos();
             var toast = new ToastNotification("Item added", "Item " + item.getTitle() + " has been added",
                         ToastNotification.Type.SUCCESS);
             return Templates.listItems(items, toast);
@@ -111,9 +112,9 @@ public class TodoListResource {
       // Delete a list item and return the updated list
       @DELETE
       @Path("item/{id}")
-      public TemplateInstance deleteTodoItem(@PathParam("id") String id) {
-            String title = todoService.removeTodoItem(id);
-            List<TodoItem> items = todoService.getTodoItems();
+      public TemplateInstance deleteTodoDto(@PathParam("id") String id) {
+            String title = todoService.removeTodoDto(id);
+            List<TodoDto> items = todoService.getTodoDtos();
             var toast = new ToastNotification("Item deleted", "Item " + title + " has been deleted",
                         ToastNotification.Type.SUCCESS);
             return Templates.listItems(items, toast);

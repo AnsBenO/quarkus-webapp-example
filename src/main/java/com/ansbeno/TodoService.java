@@ -1,55 +1,17 @@
 package com.ansbeno;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.ApplicationScoped;
+public interface TodoService {
 
-@ApplicationScoped
-public class TodoService {
+      public List<TodoDto> getTodoDtos();
 
-      private ArrayList<TodoItem> todoItems;
+      public TodoDto getTodoDto(String id);
 
-      @PostConstruct
-      public void init() {
-            todoItems = new ArrayList<>(List.of(
-                        new TodoItem("1", "Task 1", "Description for Task 1", false),
-                        new TodoItem("2", "Task 2", "Description for Task 2", true),
-                        new TodoItem("3", "Task 3", "Description for Task 3", false)));
-      }
+      public void addTodoDto(TodoDto item);
 
-      public List<TodoItem> getTodoItems() {
-            return todoItems;
-      }
+      public String removeTodoDto(String id);
 
-      public void setTodoItems(List<TodoItem> todoItems) {
-            this.todoItems = todoItems.stream()
-                        .collect(Collectors.toCollection(ArrayList::new));
-      }
-
-      public TodoItem getTodoItem(String id) {
-            return todoItems.stream()
-                        .filter(item -> item.getId().equals(id))
-                        .findFirst()
-                        .orElse(null);
-      }
-
-      public void addTodoItem(TodoItem item) {
-            todoItems.add(item);
-      }
-
-      public String removeTodoItem(String id) {
-            String title = getTodoItem(id).getTitle();
-            todoItems.removeIf(item -> item.getId().equals(id));
-            return title;
-      }
-
-      public void updateTodoItem(TodoItem updatedItem) {
-            todoItems = todoItems.stream()
-                        .map(item -> item.getId().equals(updatedItem.getId()) ? updatedItem : item)
-                        .collect(Collectors.toCollection(ArrayList::new));
-      }
+      public void updateTodoDto(TodoDto updatedItem);
 
 }

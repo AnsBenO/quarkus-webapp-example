@@ -12,7 +12,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class TodoItem {
+public class TodoDto{
       @FormParam("id")
       private String id;
       @FormParam("title")
